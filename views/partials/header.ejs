@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+  	<!-- Make site responsive on mobile/tablet -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title>Skate</title>
+    <meta name="description" content="">
+  <!--   <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    
+    <link rel="stylesheet" href="/stylesheets/normalize.css"> 
+    <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&display=swap" rel="stylesheet">
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">  
+	</head>
+	
+  <body>
+    <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+  
+    <div id="nav-head">
+      <a href="/">
+        <div id="logo">
+        </div>
+      </a>
+
+      <div id="menu_button">
+        <div class="top"></div>
+        <div class="cent"></div>
+        <div class="bottom"></div>
+      </div>           
+    </div>
+
+    <nav class="nav-closed">
+      <div class="nav-wrap">
+        <ul>
+
+          <% if(currentUser){ %>
+            <li class="signed-in" ><a class="vert-space" href="#">Logged In As <%= currentUser.username %></a>
+            </li>
+          <% } %>
+            <li>
+              <form action="/parks" method="GET" class="form-inline">
+                    <input class="search-input" type="text" name="search" placeholder="Park search">
+                    <button type="submit" value="search" class="search-btn">
+                      <i class="fas fa-search"></i>
+                    </button>        
+              </form>
+            </li>
+            
+            <li class="vert-space">
+              <a href="/parks">Home</a>
+            </li>
+            <hr>
+            <li class="vert-space">
+              <a href="/parks/new">Add New Park</a>
+            </li>
+            
+            <% if(!currentUser){ %>
+              <hr>
+              <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %> vert-space"><a href="/login">Login</a></li>
+              <hr>
+              <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %> vert-space"><a href="/register">Sign Up</a></li>
+                <% } else { %>
+              <hr>
+              <li class="vert-space"><a href="/logout">Logout</a></li>
+              <hr>
+            <% } %>
+          </ul>
+        </div>
+    </nav>
+    <div id="spacer"></div>
+    <div class="alert-wrap">
+      <% if(error && error.length > 0){ %>
+        <div class="green-alert" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+      <% if(success && success.length > 0){ %>
+        <div class="red-alert" role="alert">
+          <%= success %>
+        </div>
+      <% } %>
+    
+  
+
+    </div>
+
+      
+
+
+  
+
+	
+
+
+	
+
+
+

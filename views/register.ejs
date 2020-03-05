@@ -1,0 +1,18 @@
+<% include ./partials/header %>
+
+    <div id="border-top"></div>
+    <div id="border-right"></div>
+    <div id="border-btm"></div>
+    <div id="border-left"></div>   
+    <div class="form-wrap-main">
+        <div class="form-wrap">
+            <h1 class="left-title">Sign Up</h1>
+            <form class="form" action="/register" method="post">
+                <input type="text" name="username" placeholder="username">
+                <input type="password" name="password" placeholder="password">
+                <button class="btn-form">Sign Up!</button>
+                <a href="/parks">Go Back</a>
+            </form>
+        </div>
+    </div>
+<% include ./partials/footer %>

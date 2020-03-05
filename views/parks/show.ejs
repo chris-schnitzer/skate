@@ -1,0 +1,220 @@
+<% include ../partials/header %>
+    <div class="show-container">
+		
+        <div class="std-thumbnail">
+                <div class="img-ratings-wrap">
+                    <div class="ratings-overlap">
+                        <% if (park.rating === 0) { %>
+                            <h5>
+                                <em>No reviews yet.</em>
+                            </h5>
+                        <% } else { %>
+                            <p>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star <% if (park.rating > 1.5) { %> checked <% } %>"></span>
+                                <span class="fa fa-star <% if (park.rating > 2.5) { %> checked <% } %>"></span>
+                                <span class="fa fa-star <% if (park.rating > 3.5) { %> checked <% } %>"></span>
+                                <span class="fa fa-star <% if (park.rating > 4.5) { %> checked <% } %>"></span>
+                            </p>
+                        <% } %>
+                    </div>
+                    <img src="<%= park.image %>">
+                </div>
+                
+                
+
+                <div id="map">
+                </div>
+            
+			
+            
+			<div class="caption-show">
+				
+				<h4 class="pull-right"><%= park.level %></h4>
+				
+
+				<h3><%= park.name; %></h3>
+				<h4 class="sub-title"><strong><%= park.location %></strong></h4>
+				<p class="author-name">
+					<em>Submitted By <%= park.author.username %>, <%= moment(park.createdAt).fromNow() %></em>
+				</p>
+				
+				<p class="body-text"><%= park.description %></p>
+				
+				<% if(currentUser && park.author.id.equals(currentUser._id)){ %>
+						<a class="btn btn-warning main" href="/parks/<%= park._id %>/edit">Edit</a>
+						
+
+                        <form id="delete-form" action="/parks/<%= park._id %>?_method=DELETE" method="POST">
+							<button class="btn btn-danger main">Delete</button>
+						</form>
+
+
+				<% } %>
+
+			</div>
+		</div>
+
+
+
+		<div class="std-thumbnail">
+            <div class="caption-show">
+
+                 
+                    <p><a href="/parks/<%= park._id %>/reviews"><i class="fa fa-search search-space" aria-hidden="true"></i> See all reviews</a></p>
+                    
+                    <% if (park.rating === 0) { %>
+                <h5>
+                    <em>No reviews yet.</em>
+                </h5>
+                <% } else { %>
+                <div class="show-review-secondary">
+                    <p>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star <% if (park.rating > 1.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (park.rating > 2.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (park.rating > 3.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (park.rating > 4.5) { %> checked <% } %>"></span>
+                        <em>(total reviews: <%= park.reviews.length %>)</em>
+                    </p>
+                </div>
+                
+                <p>
+                    Current park rating: <strong><%= park.rating.toFixed(2) %></strong>
+                </p>
+                
+
+                <div class="new-review">
+                    <a class="index-btn left <% if (currentUser && park.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/parks/<%= park._id %>/reviews/new">
+                        New Review</a>
+                </div>
+
+                
+
+
+
+                <p><h4 class="latest-reviews">Latest reviews:</h4></p>
+
+                <hr class="sect-hr">
+                
+                <% park.reviews.slice(0, 5).forEach(function(review){ %>
+                
+                <div class="row rev">
+                    
+                    <div class="indiv-rev show-rev-tertiary">
+                        <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                        <div class="rev-author"><strong><%= review.author.username %></strong></div>
+                        <span class="rev-date"><em><%= review.updatedAt.toDateString() %></em></span>
+                    </div>
+
+                    <div class="indiv-rev">
+                        <p class="rev-text">
+                            <%= review.text %>
+                        </p>
+                        <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                        <a class="btn-sm btn-warning"   href="/parks/<%=park._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                        <form class="delete-form" action="/parks/<%=park._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                            <input type="submit" class="btn-sm btn-danger btn-input" value="Delete">
+                        </form>
+                        <% } %>
+                        <hr class="sect-hr">
+                    </div>
+                </div>
+            
+                <% }); %>
+                
+                <% } %>
+
+                
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+		<div class="std-thumbnail">
+            <div class="caption-show">
+    				<p><a class="index-btn cmt left" href="/parks/<%= park._id %>/comments/new">New Comment</a></p>
+                <h4 class="latest-reviews">Comments:</h4>
+                <hr>
+                <div class="row rev">
+    			
+    			<% park.comments.forEach(function(comment){ %>
+                
+    			
+    					<div>
+    						<strong><%= comment.author.username %></strong>
+    						<p><em><%= moment(comment.createdAt).fromNow() %></em></p>
+    						<p>
+    							<%= comment.text %>
+    						</p>
+    						<% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+    							<a class="btn-sm btn-warning" href="/parks/<%= park._id %>/comments/<%= comment._id %>/edit">Edit</a>
+
+    							<form action="/parks/<%= park._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+    							<input type="submit" class="btn-sm btn-danger btn-input" value="Delete">
+    							</form>
+    						<% } %>	
+                            <hr>
+    					</div>
+    				
+    			<% }) %>
+                </div>
+                
+                <a href="/parks">Go Back</a>
+
+            </div>
+		</div>
+    </div>
+<script>
+  function initMap() {
+    var lat = <%= park.lat %>;
+    var lng = <%= park.lng %>;
+    var center = {lat: lat, lng: lng };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: center,
+        scrollwheel: false
+    });
+    var contentString = `
+      <strong><%= park.name %><br />
+      <%= park.location %></strong>
+      <p><%= park.description %></p>
+    `
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    var marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
+  }
+</script>
+
+
+
+
+
+<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyAU8KSouhkI5pT12ljKnplKqOwxEybfHEw&center=47.65,-122.35000000000002&zoom=12&format=png&maptype=roadmap&style=element:geometry%7Ccolor:0xebe3cd&style=element:labels.text.fill%7Ccolor:0x523735&style=element:labels.text.stroke%7Ccolor:0xf5f1e6&style=feature:administrative%7Celement:geometry.stroke%7Ccolor:0xc9b2a6&style=feature:administrative.land_parcel%7Celement:geometry.stroke%7Ccolor:0xdcd2be&style=feature:administrative.land_parcel%7Celement:labels.text.fill%7Ccolor:0xae9e90&style=feature:landscape.natural%7Celement:geometry%7Ccolor:0xdfd2ae&style=feature:poi%7Celement:geometry%7Ccolor:0xdfd2ae&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0x93817c&style=feature:poi.park%7Celement:geometry.fill%7Ccolor:0xa5b076&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x447530&style=feature:road%7Celement:geometry%7Ccolor:0xf5f1e6&style=feature:road.arterial%7Celement:geometry%7Ccolor:0xfdfcf8&style=feature:road.highway%7Celement:geometry%7Ccolor:0xf8c967&style=feature:road.highway%7Celement:geometry.stroke%7Ccolor:0xe9bc62&style=feature:road.highway.controlled_access%7Celement:geometry%7Ccolor:0xe98d58&style=feature:road.highway.controlled_access%7Celement:geometry.stroke%7Ccolor:0xdb8555&style=feature:road.local%7Celement:labels.text.fill%7Ccolor:0x806b63&style=feature:transit.line%7Celement:geometry%7Ccolor:0xdfd2ae&style=feature:transit.line%7Celement:labels.text.fill%7Ccolor:0x8f7d77&style=feature:transit.line%7Celement:labels.text.stroke%7Ccolor:0xebe3cd&style=feature:transit.station%7Celement:geometry%7Ccolor:0xdfd2ae&style=feature:water%7Celement:geometry.fill%7Ccolor:0xb9d3c2&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x92998d&size=480x360
+"></script>-->
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU8KSouhkI5pT12ljKnplKqOwxEybfHEw&callback=initMap">
+</script>
+
+
+
+
+
+
+
+<% include ../partials/footer %>

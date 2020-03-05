@@ -1,0 +1,71 @@
+<% include ../partials/header %>
+<div class="form-wrap-main">
+    <div id="border-top"></div>
+    <div id="border-right"></div>
+    <div id="border-btm"></div>
+    <div id="border-left"></div> 
+        
+    <div class="show-container">
+        <div class="std-thumbnail">
+
+            <div class="caption-show review">
+                <h2 class="title"><%= park.name %></h2>
+                <img class="img-sm" src="<%= park.image %>">
+                
+            
+                        <% if (park.rating === 0) { %>
+                        <h5><em>No reviews yet.</em></h5>
+                        <% } else { %>
+
+                        <div>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star <% if (park.rating > 1.5) { %> checked <% } %>"></span>
+                            <span class="fa fa-star <% if (park.rating > 2.5) { %> checked <% } %>"></span>
+                            <span class="fa fa-star <% if (park.rating > 3.5) { %> checked <% } %>"></span>
+                            <span class="fa fa-star <% if (park.rating > 4.5) { %> checked <% } %>"></span>
+                            <em>(total reviews: <%= park.reviews.length %>)</em>
+                        </div>
+
+
+                        <p>Current park rating: <strong><%= park.rating.toFixed(2) %></strong></p>
+                        <h4>All reviews:</h4>
+                        <hr class="hr-margin">
+                        <% park.reviews.forEach(function(review){ %>
+                        
+                        <div class="row">
+                            
+                                <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                                <div>Review by: <strong><%= review.author.username %></strong></div>
+                                <span><em><%= review.updatedAt.toDateString() %></em></span>
+                            
+
+                            
+                                <p>
+                                    <%= review.text %>
+                                </p>
+                                <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                                <a class="btn-sm btn-warning"
+                                   href="/parks/<%=park._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                                <form id="delete-form" action="/parks/<%=park._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                                    <input type="submit" class="btn-sm btn-danger btn-input" value="Delete">
+                                </form>
+                                <% } %>
+                            
+                        </div><!--row-->
+
+                        <hr class="hr-margin">
+                        <% }); %>
+                        <% } %>
+                        
+                        <a class="index-btn cmt left <% if (currentUser && park.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/parks/<%= park._id %>/reviews/new">
+                            New Review</a>
+                        
+                
+                <a class="back-link" href="/parks/<%= park._id %>">Go back</a>
+            </div><!--caption-show-->
+        </div><!--std-tumbnail-->
+    </div><!--Show-container-->       
+</div>    
+    
+
+<% include ../partials/footer %>

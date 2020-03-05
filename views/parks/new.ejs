@@ -1,0 +1,65 @@
+<% include ../partials/header %>
+	<div class="form-wrap-main">
+		<div id="border-top"></div>
+		<div id="border-right"></div>
+		<div id="border-btm"></div>
+		<div id="border-left"></div>
+
+		<div class="form-wrap main">
+
+			<h1>Create a New Spot</h1>
+
+
+
+			<form class="form" action="/parks" method="POST" enctype="multipart/form-data">
+
+					<input type="text" name="name" placeholder="spot name">
+
+				
+					<h4 class="form-subt">Image</h4>
+					<label for="image" class="custom-file-upload">
+						Choose File
+					</label>
+
+					<input type="file" id="image" name="image" accept="image/*" required>
+				
+
+
+					<input type="text" name="park[description]" placeholder="description">
+		
+					<div class="form-group-radio">
+					<input type="radio" name="level" value="Beginner">
+					<label for="beginner" class="class-label form-subt">Beginner</label>
+				</div>
+				<div class="form-group-radio">
+					<input type="radio" name="level" value="Intermediate">
+					<label for="intermediate" class="class-label form-subt">intermediate</label>
+				</div>
+				<div class="form-group-radio">
+					<input type="radio" name="level" value="Pro">
+					<label for="pro" class="class-label form-subt">Pro</label>
+				</div>
+				<div class="form-group-radio">
+					<input type="radio" name="level" value="All Levels">
+					<label for="all" class="class-label form-subt">All Levels</label>
+				</div>
+
+
+				
+    				<label for="location" class="form-subt location">Location</label>
+
+    				<input class="form-control" type="text" name="location" id="location" placeholder="Yosemite National Park, CA" >
+		
+				<div class="form-group">
+					<button class="btn-form">Create New Spot</button>
+				</div>
+				<a href="/parks">Go Back</a>
+			</form>
+
+
+
+
+			
+		</div>		
+	</div>
+<% include ../partials/footer %>
