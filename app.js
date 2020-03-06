@@ -18,7 +18,8 @@ var commentRoutes = require("./routes/comments"),
 	parkRoutes    = require("./routes/parks"),
 	indexRoutes   = require("./routes/index");	
 
-mongoose.connect("mongodb://localhost:27017/skateHunt_v9", { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost:27017/skateHunt_v9", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://cschnitzer:kaifinny@cluster0-4rway.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
 mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
