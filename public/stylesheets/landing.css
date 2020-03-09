@@ -37,13 +37,13 @@ body {
 	z-index: 1;
 	position: relative;
 	text-align: center;
-	padding-top: 40vh;
+	padding-top: 35vh;
 }
 
 #landing-header h1 {
 	color: #fff;
 	font-family: 'Faster One', cursive;
-	font-size: 65px;
+	font-size: 50px;
 }
 
 .slideshow {
@@ -116,6 +116,12 @@ body {
 /* Older browser support - .no-cssanimations added by modernizr */
 .no-cssanimations .slideshow li {
 	opacity: 1;
+}
+
+@media (min-width: 768px) { 
+	#landing-header {
+		padding-top: 40vh;
+	}
 }
 
 
