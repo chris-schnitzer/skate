@@ -302,6 +302,11 @@ input:focus {
   padding:0 0 0 7px;
 }
 
+input {
+  border-style: solid;
+}
+
+
 .signed-in {
   font-weight: 800;
 }
