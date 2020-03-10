@@ -304,6 +304,8 @@ input:focus {
 
 input {
   border-style: solid;
+  -webkit-appearance: none;
+  box-shadow: inset 0px 0px 0px 0px;
 }
 
 
