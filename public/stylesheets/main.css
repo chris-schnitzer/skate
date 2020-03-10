@@ -635,7 +635,7 @@ a .btn-sm {
 }
 
 .green-alert p,  .red-alert p, .no-match-err p{
-  margin-left: 30px;
+  text-align: center;
 }
 
 /*NEW SPOT FORM*/
