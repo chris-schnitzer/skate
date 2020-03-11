@@ -19,17 +19,23 @@ body {
 	border: none;
 }
 
-
-  .btn:hover {
+.btn:hover {
     color: #fff;
     background-color: #27C900;
     text-decoration: none;
-  }
+}
 
 .btn:active, .btn:focus {
   color: #fff !important;
   background-color: #27C900 !important;
   border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+a.btn.btn-primary {
+	border: none !important;
+  outline: none !important;
 }
 
 
