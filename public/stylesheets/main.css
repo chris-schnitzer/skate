@@ -692,11 +692,24 @@ a .btn-sm {
   margin-left: 25px;
 }
 
+div .rating-line .form-group-radio {
+  border: none;
+}
+
+fieldset #rating {
+  color: #fff;
+}
+
+input #first-rate5 {
+  color: #fff;
+}
+
 input[type='radio'] {
   width: 14px;
   height: 14px;
   top: 4px;
   left: 2px;
+  border: none;
 }
 
 
@@ -729,7 +742,7 @@ input[type='radio']:checked:after {
     content: '';
     display: inline-block;
     visibility: visible;
-    border: 0 solid white;
+    
     /*padding-bottom: 2px;*/
 
 }
