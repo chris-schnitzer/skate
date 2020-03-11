@@ -43,7 +43,7 @@ router.get("/", function(req, res){
 	if(req.query.search){
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		//Get all parks from db
-		Park.find({name: regex}, function(err, allParks){
+		Park.find({location: regex}, function(err, allParks){
 			if(err){
 				console.log(err);
 			} else {
