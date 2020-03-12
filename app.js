@@ -20,9 +20,10 @@ var commentRoutes = require("./routes/comments"),
 
 console.log(process.env.DATABASEURL);
 
-mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
-//mongoose.connect("mongodb+srv://cschnitzer:kaifinny@cluster0-4rway.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
-process.env.databaseURL
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/skateHunt_v9";
+
+mongoose.connect(url, { useNewUrlParser: true });
+
 mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
