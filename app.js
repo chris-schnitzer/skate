@@ -36,7 +36,7 @@ app.locals.moment = require("moment");
 
 //PASSPORT CONFIGURATION
 app.use(require("express-session")({
-	secret: "Kai and Finny are the best",
+	secret: process.env.PASSPORT_CONFIG_SECRET,
 	resave: false,
 	saveUninitialized: false
 }));
